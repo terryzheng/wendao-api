@@ -19,7 +19,7 @@ end
 
 #暂时不加web日志，并在mongoid.yml中取消掉mongoid的日志
 #    if ENV["RACK_ENV"]=="production"
-#      logger = ::Logger.new("logs/api.log")
+#      logger = ::Logger.new("log/thin.log")
 #      logger.level = ::Logger::WARN
 #    end
 
