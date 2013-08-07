@@ -2,7 +2,7 @@
 helpers do
   def get_ask
     if !$redis_asks.exists(params[:id])
-      halt [{"error"=>"Ask not found."}]
+      halt [{"error"=>"Ask not found."}.to_json]
     end
   end
   
