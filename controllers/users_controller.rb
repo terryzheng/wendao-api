@@ -16,7 +16,7 @@ get '/users' do
   content_type :json
   pagination_get_ready
   if params[:experts].blank? and params[:elites].blank? and params[:current_user].blank?
-    halt [{:error=>"it is not allowed to get all users"}.to_json]
+    halt [401,"it is not allowed to get all users"]
   end
   
   if !params[:current_user].blank?
