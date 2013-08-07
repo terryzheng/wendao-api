@@ -24,12 +24,12 @@ get '/asks/:id' do
     if @asks.count>0
       @asks.to_json(:wendao_show=>true)
     else
-      halt [404,"resource not found."]
+      halt [{"error"=>"resource not found."}.to_json]
     end
   elsif arr.count>0
     @ask = Ask.nondeleted.normal.where(:_id=>arr[0]).first
     if @ask.blank?
-      halt [404,"resource not found."]
+      halt [{"error"=>"resource not found."}.to_json]
     else
       @ask.to_json(:wendao_show=>true)
     end
