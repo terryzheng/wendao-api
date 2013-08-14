@@ -13,8 +13,8 @@ helpers do
     end
   end
   
-  def get_user
-    @user=User.nondeleted.only(:_id).where(:slug=>params[:id]).first
+  def get_user(fields="")
+    @user=User.nondeleted.only(fields).where(:slug=>params[:id]).first
     if @user.blank?
       halt [{"error"=>"User not found."}.to_json]
     end
