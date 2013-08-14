@@ -17,7 +17,7 @@ end
 get '/topics/:name/suggest_topics' do
   content_type :json
   get_topic
-  @related_topics = TopicSuggestTopic.only(:topics).where(:topic_id=>@topic_id).first
+  @related_topics = TopicSuggestTopic.only(:topics).where(:topic_id=>Moped::BSON::ObjectId(@topic_id)).first
   if !@related_topics.blank?
     @related_topics.topics.to_json
   else
@@ -28,7 +28,7 @@ end
 get '/topics/:name/suggest_experts' do
   content_type :json
   get_topic
-  @related_topics = TopicSuggestExpert.only(:expert_ids).where(:topic_id=>@topic_id).first
+  @related_topics = TopicSuggestExpert.only(:expert_ids).where(:topic_id=>Moped::BSON::ObjectId(@topic_id)).first
   if !@related_topics.blank?
     @related_topics.expert_ids.to_json
   else

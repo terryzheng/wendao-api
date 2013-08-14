@@ -39,7 +39,7 @@ end
 get '/asks/:id/sugg' do
   content_type :json
   get_ask
-  @related_asks = AskSuggestAsk.where(:ask_id=>params[:id]).first
+  @related_asks = AskSuggestAsk.where(:ask_id=>Moped::BSON::ObjectId(params[:id])).first
   if !@related_asks.blank?
     @ret = @related_asks.ask_ids
   else
@@ -52,7 +52,7 @@ get '/asks/:id/logs' do
   content_type :json
   get_ask
   pagination_get_ready
-  @logs = Log.only(Log::FIELDS).where(:target_id=>params[:id]).desc(:created_at)
+  @logs = Log.only(Log::FIELDS).where(:target_id=>Moped::BSON::ObjectId(params[:id])).desc(:created_at)
   @ret = @logs.skip((@page-1)*@per_page).limit(@per_page)
   render_this!
 end

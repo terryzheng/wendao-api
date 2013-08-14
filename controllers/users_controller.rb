@@ -46,9 +46,9 @@ end
 
 get '/users/:id/asked_to' do
   content_type :json
-  get_user
+  get_user("ask_to_me_ids")
   pagination_get_ready
-  @asks = Ask.nondeleted.normal.only(Ask::FIELDS).any_of({:to_user_id=>@user.id},{:to_user_ids=>@user.id}).desc(:created_at)
+  @asks = Ask.nondeleted.normal.only(Ask::FIELDS).any_in(:_id=>@user.ask_to_me_ids).desc(:created_at)
   @ret = @asks.skip((@page-1)*@per_page).limit(@per_page)
   render_this!
 end
